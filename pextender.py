@@ -21,7 +21,7 @@ def pattern_extender(src, dest, new_shape):
     assert pattern.shape[0] <= new_shape[0] and pattern.shape[1] <= new_shape[1],\
         ("Extended image's shape should be at least as large as the pattern shape, "
          "but got ({}, {}) whereas pattern shape is ({}, {})".format(*new_shape,
-                                                                 *pattern.shape))
+                                                                     *pattern.shape))
 
     is_bw = len(pattern.shape) == 2  # is black and white
     fill = filler2 if is_bw else filler3
@@ -59,8 +59,10 @@ def pattern_extender(src, dest, new_shape):
 
 argv = sys.argv
 
-assert len(argv) == 5, """input must be 4 arguments, namely: pattern image name, output image name, pixel height and width of output image, but got {} argument{}""".format(
-    len(argv) - 1, 's' if len(argv) > 2 else '')
+assert len(argv) == 5, ("input must be 4 arguments: pattern name,"
+                        "output image name, pixel height and width, "
+                        "but got {} argument{}"
+                        .format(len(argv) - 1, 's' if len(argv) > 2 else ''))
 
 src_path, dest_path = argv[1], argv[2]
 new_shape = (int(argv[3]), int(argv[4]))
