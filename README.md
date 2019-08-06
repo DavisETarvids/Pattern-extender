@@ -20,3 +20,5 @@ pextender pattern2.jpeg repeatpattern.jpeg 480 980
   <img src="https://github.com/ihsuy/Pattern-extender/blob/master/examples/pattern2.jpeg" width="260">
   <img src="https://github.com/ihsuy/Pattern-extender/blob/master/examples/repeatpattern2.jpeg" hight="460">
 </p>
+
+Image credits: https://www.toptal.com/designers/subtlepatterns/
