@@ -1,5 +1,3 @@
-#!/Library/Frameworks/Python.framework/Versions/3.6/bin/python3
-
 import sys
 import os
 # image load/save
@@ -7,6 +5,7 @@ import imageio
 # image manipulation
 import numpy as np
 import math
+
 
 def filler2(canvas, pattern, i, j, h, w):
     canvas[i:i + h, j:j + w] = pattern[0:h, 0:w]
@@ -18,15 +17,21 @@ def filler3(canvas, pattern, i, j, h, w):
 
 def pattern_extender(src, dest, new_shape):
     pattern = imageio.imread(src)
+
+    assert pattern.shape[0] <= new_shape[0] and pattern.shape[1] <= new_shape[1],\
+        ("Extended image's shape should be at least as large as the pattern shape, "
+         "but got ({}, {}) whereas pattern shape is ({}, {})".format(*new_shape,
+                                                                 *pattern.shape))
+
     is_bw = len(pattern.shape) == 2  # is black and white
     fill = filler2 if is_bw else filler3
     canvas = np.zeros(new_shape if is_bw else (*new_shape, 3))
-    
 
+    # prepare progress bar
     progressbar_width, progress = 50, 0
     sys.stdout.write("[%s]" % (" " * progressbar_width))
     sys.stdout.flush()
-    sys.stdout.write("\b" * (progressbar_width+1))
+    sys.stdout.write("\b" * (progressbar_width + 1))
 
     i = 0
     while i < new_shape[0]:
@@ -41,10 +46,11 @@ def pattern_extender(src, dest, new_shape):
             fill(canvas, pattern, i, j, h, w)
             j += pattern.shape[1]
         i += pattern.shape[0]
-        current_progress = math.floor((i/new_shape[0])*progressbar_width)
-        for p in range(current_progress-progress): 
-        	sys.stdout.write("-")
-        	sys.stdout.flush()
+        # update progress bar
+        current_progress = math.floor((i / new_shape[0]) * progressbar_width)
+        for p in range(current_progress - progress):
+            sys.stdout.write("-")
+            sys.stdout.flush()
         progress = current_progress
 
     sys.stdout.write("]\nsaving...\n")
