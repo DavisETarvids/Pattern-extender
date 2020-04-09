@@ -3,11 +3,11 @@ Simple program to extend repeat patterns.
 
 ## Usage
 ```bash
-pextender [pattern path] [extended image path] [extended image height (pixels)] [extended image width (pixels)]
+pextender [input image path] [output image path] [output image height (pixels)] [output image width (pixels)]
 ```
 **Example usage**
 ```bash
-pextender pattern2.jpeg repeatpattern.jpeg 480 980
+pextender pattern.jpeg repeatpattern.jpeg 480 980
 ```
 
 ## Examples
